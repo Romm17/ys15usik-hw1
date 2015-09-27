@@ -6,7 +6,7 @@ public class TemperatureSeriesAnalysis {
 
 	public static final int MIN_TEMPERATURE = -273;
 
-	private double arr[];
+	private double[] arr;
 
 	private int size;
 
@@ -15,11 +15,13 @@ public class TemperatureSeriesAnalysis {
 	public TemperatureSeriesAnalysis() {
         this.tempSummaryStatistics = new TempSummaryStatistics(0, 0, 0, 0);
     }
-    
+
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-    	for(double val : temperatureSeries)
-    		if(val < MIN_TEMPERATURE)
+    	for(double val : temperatureSeries) {
+    		if(val < MIN_TEMPERATURE) {
     			throw new InputMismatchException();
+    		}
+    	}
         this.arr = temperatureSeries;
         size = this.arr.length;
         double avg = avg();
@@ -28,7 +30,7 @@ public class TemperatureSeriesAnalysis {
         double max = maxTemp();
         this.tempSummaryStatistics = new TempSummaryStatistics(avg, dev, min, max);
     }
-	
+
     private double avg() {
     	if(arr.length == 0)
 			return 0;
@@ -120,7 +122,7 @@ public class TemperatureSeriesAnalysis {
 		}
 		return min;
 	}
-    
+
     public double[] findTempsLessThen(double tempValue) {
         if(arr.length == 0)
 			throw new IllegalArgumentException();
@@ -137,7 +139,7 @@ public class TemperatureSeriesAnalysis {
 		}
 		return res;
     }
-    
+
     public double[] findTempsGreaterThen(double tempValue) {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
@@ -154,11 +156,11 @@ public class TemperatureSeriesAnalysis {
 		}
 		return res;
     }
-    
+
     public TempSummaryStatistics summaryStatistics() {
         return this.tempSummaryStatistics;
     }
-    
+
     public int addTemps(double ... temps){
     	int newSize = -1;
     	if(size + temps.length > arr.length){
