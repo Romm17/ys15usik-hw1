@@ -6,6 +6,8 @@ public class TemperatureSeriesAnalysis {
 
 public static final int MIN_TEMPERATURE = -273;
 
+public static final double frequency = 0.0001;
+
 private double[] arr;
 
 private int size;
@@ -54,7 +56,7 @@ return this.tempSummaryStatistics.getAvgTemp();
 private double dev(double avg) {
 double dev = 0;
 for (double elem : arr) {
-dev += Math.pow(elem - avg, 2);
+dev += (elem - avg) * (elem - avg);
 }
 dev = Math.sqrt(dev / arr.length);
 return dev;
@@ -73,7 +75,9 @@ return 0;
 }
 double min = arr[0];
 for (int i = 1; i < arr.length; i++) {
-min = arr[i] < min ? arr[i] : min;
+if (arr[i] < min) {
+min = arr[i];
+}
 }
 return min;
 }
@@ -91,10 +95,9 @@ return 0;
 }
 double max = arr[0];
 for (int i = 1; i < arr.length; i++) {
-max = 
-arr[i] > max ? 
-arr[i] : 
-max;
+if (arr[i] > max) { 
+max = arr[i];
+}
 }
 return max;
 }
@@ -106,21 +109,7 @@ throw new IllegalArgumentException();
 return this.tempSummaryStatistics.getMaxTemp();
 }
 
-public double findTempClosestToZero() {
-if (arr.length == 0) {
-throw new IllegalArgumentException();
-}
-double min = arr[0];
-for (int i = 1; i < arr.length; i++) {
-double minAbs = Math.abs(min);
-double valAbs = Math.abs(arr[i]);
-if(valAbs < minAbs || (Math.abs(minAbs - valAbs) < 0.000001 && arr[i] > 0))
-min = arr[i];
-}
-return min;
-}
-
-public double findTempClosestToValue(double tempValue) {
+private double findClosestTemp(double tempValue) {
 if (arr.length == 0) {
 throw new IllegalArgumentException();
 }
@@ -128,53 +117,63 @@ double min = arr[0];
 for (int i = 1; i < arr.length; i++) {
 double minAbs = Math.abs(min - tempValue);
 double valAbs = Math.abs(arr[i] - tempValue);
-if (valAbs < minAbs || 
-(Math.abs(minAbs - valAbs) < 0.000001 && 
-arr[i] - tempValue > 0)) {
+if (valAbs < minAbs 
+|| (Math.abs(minAbs - valAbs) < frequency
+&& arr[i] - tempValue > 0)) {
 min = arr[i];
 }
 }
 return min;
 }
 
-public double[] findTempsLessThen(double tempValue) {
+public double findTempClosestToZero() {
+return findClosestTemp(0);
+}
+
+public double findTempClosestToValue(double tempValue) {
+return findClosestTemp(tempValue);
+}
+
+private double findTempsLessOrGreater(double tempValue, boolean cond) {
 if (arr.length == 0) {
 throw new IllegalArgumentException();
 }
 int count = 0;
 for (double elem : arr) {
+if (cond) {
 if (elem < tempValue) {
 count++; 
 }
 }
-double res[] = new double[count];
+else {
+if (elem > tempValue) {
+count++; 
+}
+}
+}
+double[] res = new double[count];
 count = 0;
 for (double elem : arr) {
+if (cond) {
 if (elem < tempValue) {
 res[count++] = elem; 
+}
+}
+else {
+if (elem > tempValue) {
+res[count++] = elem; 
+}
 }
 }
 return res;
 }
 
+public double[] findTempsLessThen(double tempValue) {
+return findTempsLessOrGreater(tempValue, true);
+}
+
 public double[] findTempsGreaterThen(double tempValue) {
-if (arr.length == 0) {
-throw new IllegalArgumentException();
-}
-int count = 0;
-for (double elem : arr) {
-if (elem > tempValue) {
-count++; 
-}
-}
-double res[] = new double[count];
-count = 0;
-for (double elem : arr) {
-if (elem > tempValue) {
-res[count++] = elem; 
-}
-}
-return res;
+return findTempsLessOrGreater(tempValue, false);
 }
 
 public TempSummaryStatistics summaryStatistics() {
@@ -191,7 +190,7 @@ else
 newSize = size + temps.length + 10;
 }
 if (newSize != -1) {
-double newTemps[] = new double[newSize];
+double[] newTemps = new double[newSize];
 System.arraycopy(arr, 0, newTemps, 0, size);
 System.arraycopy(temps, 0, newTemps, size, temps.length);
 size += temps.length;
