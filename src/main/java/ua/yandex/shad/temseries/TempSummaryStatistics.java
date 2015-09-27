@@ -8,27 +8,27 @@ private double minTemp;
 private double maxTemp;
 
 public TempSummaryStatistics(
-	double avg, double dev, double min, double max) {
-	avgTemp = avg;
-	devTemp = dev;
-	minTemp = min;
-	maxTemp = max;
+double avg, double dev, double min, double max) {
+avgTemp = avg;
+devTemp = dev;
+minTemp = min;
+maxTemp = max;
 }
 
 public double getAvgTemp() {
-	return avgTemp;
+return avgTemp;
 }
 
 public double getDevTemp() {
-	return devTemp;
+return devTemp;
 }
 
 public double getMinTemp() {
-	return minTemp;
+return minTemp;
 }
 
 public double getMaxTemp() {
-	return maxTemp;
+return maxTemp;
 }
 
 }
