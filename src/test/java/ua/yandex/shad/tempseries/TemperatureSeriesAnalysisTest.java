@@ -6,6 +6,15 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysisTest {
 
+	@Test
+	public void testTemperatureSeriesAnalysis(){
+		TemperatureSeriesAnalysis temperatureSeriesAnalysis = new TemperatureSeriesAnalysis();
+		TempSummaryStatistics tss = temperatureSeriesAnalysis.summaryStatistics();
+		assertTrue(tss.getAvgTemp() == tss.getMinTemp() 
+			&& tss.getAvgTemp() == tss.getMaxTemp()
+			&& tss.getAvgTemp() == tss.getDevTemp());
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testAverage_FailOnEmptyList(){
 		double arr[] = {};
