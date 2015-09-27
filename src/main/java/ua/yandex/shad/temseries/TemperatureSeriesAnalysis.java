@@ -17,8 +17,8 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-    	for(double val : temperatureSeries) {
-    		if(val < MIN_TEMPERATURE) {
+    	for (double val : temperatureSeries) {
+    		if (val < MIN_TEMPERATURE) {
     			throw new InputMismatchException();
     		}
     	}
