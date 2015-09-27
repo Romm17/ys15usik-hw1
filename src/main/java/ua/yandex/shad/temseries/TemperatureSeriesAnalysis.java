@@ -134,7 +134,7 @@ public double findTempClosestToValue(double tempValue) {
 return findClosestTemp(tempValue);
 }
 
-private double findTempsLessOrGreater(double tempValue, boolean cond) {
+private double[] findTempsLessOrGreater(double tempValue, boolean cond) {
 if (arr.length == 0) {
 throw new IllegalArgumentException();
 }

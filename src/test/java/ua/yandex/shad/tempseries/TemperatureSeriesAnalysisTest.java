@@ -51,7 +51,6 @@ public class TemperatureSeriesAnalysisTest {
 		TemperatureSeriesAnalysis temperatureSeriesAnalysis = new TemperatureSeriesAnalysis(arr);
 		double expected = -50.2;
 		double actual = temperatureSeriesAnalysis.min();
-		System.out.println(actual);
 		assertEquals(expected, actual, 0.0001);
 	}
 
