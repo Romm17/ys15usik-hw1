@@ -1,7 +1,7 @@
 package ua.yandex.shad.tempseries;
 
 import java.util.InputMismatchException;
-import static java.util.Arrays.copyOf;
+import java.util.Arrays;
 
 public class TemperatureSeriesAnalysis {
 
@@ -27,7 +27,7 @@ if (val < MIN_TEMPERATURE) {
 throw new InputMismatchException();
 }
 }
-this.arr = copyOf(temperatureSeries,
+this.arr = Arrays.copyOf(temperatureSeries,
 temperatureSeries.length);
 size = this.arr.length;
 double avg = avg();
