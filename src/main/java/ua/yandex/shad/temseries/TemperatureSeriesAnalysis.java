@@ -13,7 +13,7 @@ public class TemperatureSeriesAnalysis {
 	private TempSummaryStatistics tempSummaryStatistics;
 
 	public TemperatureSeriesAnalysis() {
-        this.tempSummaryStatistics = new TempSummaryStatistics();
+        this.tempSummaryStatistics = new TempSummaryStatistics(0, 0, 0, 0);
     }
     
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
@@ -28,25 +28,8 @@ public class TemperatureSeriesAnalysis {
         double max = maxTemp();
         this.tempSummaryStatistics = new TempSummaryStatistics(avg, dev, min, max);
     }
-
-    public static void main(String... args){
-    	double arr[] = {3.0, 10.2, -20.4, -1.0, -5.3, 1.0, -5.1};
-    	//double arr[] = {};
-    	TemperatureSeriesAnalysis tsa = null;
-    	try{
-	    	tsa = new TemperatureSeriesAnalysis(arr);
-	    	try{
-		    	System.out.println(tsa.findTempClosestToValue(-5.2));
-		    }catch(IllegalArgumentException e){
-		    	System.out.println("Empty array");
-		    	e.printStackTrace();
-		    }
-	    }catch(InputMismatchException e){
-	    	System.out.println("Constructor was broken");
-	    }
-    }
 	
-    private double avg(){
+    private double avg() {
     	if(arr.length == 0)
 			return 0;
 		double avg = 0;
@@ -56,13 +39,13 @@ public class TemperatureSeriesAnalysis {
 		return avg;
     }
 
-	public double average(){
+	public double average() {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
-		return this.tempSummaryStatistics.avgTemp;
+		return this.tempSummaryStatistics.getAvgTemp();
 	}
 
-	private double dev(double avg){
+	private double dev(double avg) {
 		double dev = 0;
 		for(double elem : arr)
 			dev += Math.pow(elem - avg, 2);
@@ -70,13 +53,13 @@ public class TemperatureSeriesAnalysis {
 		return dev;
 	}
 
-	public double deviation(){
+	public double deviation() {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
-		return this.tempSummaryStatistics.devTemp;
+		return this.tempSummaryStatistics.getDevTemp();
 	}
 
-	private double minTemp(){
+	private double minTemp() {
 		if(arr.length == 0)
 			return 0;
 		double min = arr[0];
@@ -88,13 +71,13 @@ public class TemperatureSeriesAnalysis {
 		return min;
 	}
 
-	public double min(){
+	public double min() {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
-		return this.tempSummaryStatistics.minTemp;
+		return this.tempSummaryStatistics.getMinTemp();
 	}
 
-	private double maxTemp(){
+	private double maxTemp() {
 		if(arr.length == 0)
 			return 0;
 		double max = arr[0];
@@ -106,13 +89,13 @@ public class TemperatureSeriesAnalysis {
 		return max;
 	}
 
-	public double max(){
+	public double max() {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
-		return this.tempSummaryStatistics.maxTemp;
+		return this.tempSummaryStatistics.getMaxTemp();
 	}
 
-	public double findTempClosestToZero(){
+	public double findTempClosestToZero() {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
 		double min = arr[0];
@@ -125,7 +108,7 @@ public class TemperatureSeriesAnalysis {
 		return min;
 	}
 
-	public double findTempClosestToValue(double tempValue){
+	public double findTempClosestToValue(double tempValue) {
         if(arr.length == 0)
 			throw new IllegalArgumentException();
 		double min = arr[0];
@@ -138,7 +121,7 @@ public class TemperatureSeriesAnalysis {
 		return min;
 	}
     
-    public double[] findTempsLessThen(double tempValue){
+    public double[] findTempsLessThen(double tempValue) {
         if(arr.length == 0)
 			throw new IllegalArgumentException();
 		int count = 0;
@@ -155,7 +138,7 @@ public class TemperatureSeriesAnalysis {
 		return res;
     }
     
-    public double[] findTempsGreaterThen(double tempValue){
+    public double[] findTempsGreaterThen(double tempValue) {
 		if(arr.length == 0)
 			throw new IllegalArgumentException();
 		int count = 0;
@@ -172,7 +155,7 @@ public class TemperatureSeriesAnalysis {
 		return res;
     }
     
-    public TempSummaryStatistics summaryStatistics(){
+    public TempSummaryStatistics summaryStatistics() {
         return this.tempSummaryStatistics;
     }
     

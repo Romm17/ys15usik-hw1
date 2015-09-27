@@ -38,12 +38,11 @@ public class TemperatureSeriesAnalysisTest {
 		assertEquals(expected, actual, 0.0001);
 	}
 
-	/*@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testMin_FailOnEmptyList(){
 		double arr[] = {};
 		TemperatureSeriesAnalysis temperatureSeriesAnalysis = new TemperatureSeriesAnalysis(arr);
 		temperatureSeriesAnalysis.min();
-		fail("Fail");
 	}
 
 	@Test
@@ -61,7 +60,6 @@ public class TemperatureSeriesAnalysisTest {
 		double arr[] = {};
 		TemperatureSeriesAnalysis temperatureSeriesAnalysis = new TemperatureSeriesAnalysis(arr);
 		temperatureSeriesAnalysis.max();
-		fail("Fail");
 	}
 
 	@Test
@@ -71,7 +69,7 @@ public class TemperatureSeriesAnalysisTest {
 		double expected = 100;
 		double actual = temperatureSeriesAnalysis.max();
 		assertEquals(expected, actual, 0.0001);
-	}*/
+	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindTempClosestToZero_FailOnEmptyList(){
@@ -199,7 +197,7 @@ public class TemperatureSeriesAnalysisTest {
 		TemperatureSeriesAnalysis tsa = new TemperatureSeriesAnalysis(arr);
 		TempSummaryStatistics tss = tsa.summaryStatistics();
 		double average = tsa.average();
-		assertEquals(average, tss.avgTemp, 0.001);
+		assertEquals(average, tss.getAvgTemp(), 0.001);
 	}
 
 }
