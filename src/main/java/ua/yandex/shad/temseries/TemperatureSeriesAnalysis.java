@@ -1,12 +1,15 @@
 package ua.yandex.shad.tempseries;
 
 import java.util.InputMismatchException;
+import static java.util.Arrays.*;
 
 public class TemperatureSeriesAnalysis {
 
 public static final int MIN_TEMPERATURE = -273;
 
-public static final double frequency = 0.0001;
+public static final double FREQUENCY = 0.0001;
+
+public static final int ENLARGING = 10;
 
 private double[] arr;
 
@@ -24,7 +27,8 @@ if (val < MIN_TEMPERATURE) {
 throw new InputMismatchException();
 }
 }
-this.arr = temperatureSeries;
+this.arr = copyOf(temperatureSeries,
+temperatureSeries.length);
 size = this.arr.length;
 double avg = avg();
 double dev = dev(avg);
@@ -118,8 +122,8 @@ for (int i = 1; i < arr.length; i++) {
 double minAbs = Math.abs(min - tempValue);
 double valAbs = Math.abs(arr[i] - tempValue);
 if (valAbs < minAbs 
-|| (Math.abs(minAbs - valAbs) < frequency
-&& arr[i] - tempValue > 0)) {
+|| Math.abs(minAbs - valAbs) < FREQUENCY
+&& arr[i] - tempValue > 0) {
 min = arr[i];
 }
 }
@@ -180,14 +184,15 @@ public TempSummaryStatistics summaryStatistics() {
 return this.tempSummaryStatistics;
 }
 
-public int addTemps(double ... temps){
+public int addTemps(double ... temps) {
 int newSize = -1;
 if (size + temps.length > arr.length) {
 if (2 * arr.length < temps.length) {
 newSize = 2 * arr.length;
 }
-else
-newSize = size + temps.length + 10;
+else {
+newSize = size + temps.length + ENLARGING;
+}
 }
 if (newSize != -1) {
 double[] newTemps = new double[newSize];
