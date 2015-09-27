@@ -1,7 +1,7 @@
 package ua.yandex.shad.tempseries;
 
 import java.util.InputMismatchException;
-import static java.util.Arrays.*;
+import static java.util.Arrays.copyOf;
 
 public class TemperatureSeriesAnalysis {
 
