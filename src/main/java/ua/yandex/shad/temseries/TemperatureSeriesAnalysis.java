@@ -121,7 +121,7 @@ double min = arr[0];
 for (int i = 1; i < arr.length; i++) {
 double minAbs = Math.abs(min - tempValue);
 double valAbs = Math.abs(arr[i] - tempValue);
-if (valAbs < minAbs 
+if (minAbs - valAbs > FREQUENCY 
 || Math.abs(minAbs - valAbs) < FREQUENCY
 && arr[i] - tempValue > 0) {
 min = arr[i];
