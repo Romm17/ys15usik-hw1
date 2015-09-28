@@ -187,7 +187,7 @@ return this.tempSummaryStatistics;
 public int addTemps(double ... temps) {
 int newSize = -1;
 if (size + temps.length > arr.length) {
-if (2 * arr.length < temps.length) {
+if (2 * arr.length > size + temps.length) {
 newSize = 2 * arr.length;
 }
 else {

@@ -165,6 +165,13 @@ public class TemperatureSeriesAnalysisTest {
 			assertEquals(expected[i], result[i], 0.001);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindTempsGreaterThen_onEmptyArray(){
+		double arr[] = {};
+		TemperatureSeriesAnalysis tsa = new TemperatureSeriesAnalysis(arr);
+		tsa.findTempsGreaterThen(-5.1);
+	}
+
 	@Test
 	public void testFindTempsGreaterThen(){
 		double arr[] = {3.0, 10.2, -20.4, -1.0, -5.3, 1.0, -5.1};
